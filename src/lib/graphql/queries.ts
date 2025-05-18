@@ -1,5 +1,15 @@
 import { gql } from '@apollo/client';
 
+export const GET_USER_INFO = gql`
+  query GetUserInfo {
+    viewer {
+      id
+      email
+      username
+    }
+  }
+`;
+
 export const GET_LOCATIONS = gql`
   query GetLocations {
     pullupLocations {

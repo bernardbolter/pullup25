@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
+import { UserProvider } from '@/providers/UserContext';
 import { getMessages } from 'next-intl/server';
 import Navigation from '@/components/layout/Navigation';
 import '@/styles/main.scss';
@@ -36,8 +37,10 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <Navigation />
-          <main>{children}</main>
+          <UserProvider>
+            <Navigation />
+            <main>{children}</main>
+          </UserProvider>
         </NextIntlClientProvider>
       </body>
     </html>

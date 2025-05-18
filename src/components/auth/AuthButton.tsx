@@ -5,29 +5,26 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 import styles from './AuthButton.module.scss';
+import { useUser } from '@/providers/UserContext';
+import { isAuthenticated, removeAuthToken } from '@/lib/graphql-client';
 
-interface AuthButtonProps {
-  userEmail?: string;
-  isAuthenticated?: boolean;
-  onLogout?: () => void;
-}
-
-export const AuthButton = ({
-  userEmail,
-  isAuthenticated = false,
-  onLogout,
-}: AuthButtonProps) => {
+export const AuthButton = () => {
   const t = useTranslations('Auth');
+  const authenticated = isAuthenticated();
   const [showTooltip, setShowTooltip] = useState(false);
+  const { user, loading, error } = useUser();
+  console.log(user);
+  console.log(loading);
+  console.log(error);
 
-  if (isAuthenticated && userEmail) {
+  if (authenticated) {
     return (
       <div className={styles.authButton}>
         <div className={styles.authenticated}>
-          <span className={styles.email}>{userEmail}</span>
+          <span className={styles.email}>{user?.email}</span>
           <button
             className={styles.logoutButton}
-            onClick={onLogout}
+            onClick={() => removeAuthToken()}
             aria-label={t('logout')}
           >
             <FaSignOutAlt />

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import ArtistCard from '@/components/artists/ArtistCard';
 import { Artist, getArtists } from '@/lib/api/artists';
 import { AuthButton } from '@/components/auth/AuthButton';
+import { isAuthenticated } from '@/lib/graphql-client';
 
 export const metadata: Metadata = {
   title: 'Artists - The Pullup Gallery',
@@ -18,6 +19,8 @@ interface ArtistsClientProps {
 const ArtistsClient: React.FC<ArtistsClientProps> = ({ artists }) => {
   console.log(artists);
   const t = useTranslations('artists');
+  const authenticated = isAuthenticated();
+  console.log(authenticated);
 
   return (
     <div className="artists">

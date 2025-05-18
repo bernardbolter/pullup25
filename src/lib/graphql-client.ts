@@ -37,4 +37,4 @@ export const removeAuthToken = () => {
 
 export const isAuthenticated = (): boolean => {
   return !!getAuthToken();
-}; 
+};

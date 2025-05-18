@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
-const WORDPRESS_GRAPHQL_URL = process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_URL || 'http://your-wordpress-site.com/graphql';
+const WORDPRESS_GRAPHQL_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
 export const createGraphQLClient = (token?: string) => {
   const headers: Record<string, string> = {
@@ -9,6 +9,10 @@ export const createGraphQLClient = (token?: string) => {
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  if (!WORDPRESS_GRAPHQL_URL) {
+    throw new Error('WORDPRESS_GRAPHQL_URL is not defined in the environment variables.');
   }
 
   return new GraphQLClient(WORDPRESS_GRAPHQL_URL, {

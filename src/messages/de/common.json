@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "home": "Die Pullup Galerie",
+    "locations": "Standorte",
+    "artists": "Künstler",
+    "about": "Über uns"
+  },
+  "home": {
+    "title": "Die Pullup Galerie",
+    "subtitle": "Kunst in Augmented Reality erleben"
+  },
+  "ar": {
+    "instructions": "Richten Sie Ihre Kamera auf das Zielbild, um das Kunstwerk zu sehen"
+  },
+  "locations": {
+    "title": "Kunststandorte",
+    "search": "Standorte suchen",
+    "submit": "Neuen Standort einreichen",
+    "form": {
+      "title": "Standorttitel",
+      "description": "Beschreibung",
+      "image": "Bild hochladen",
+      "coordinates": "Koordinaten",
+      "submit": "Standort einreichen"
+    }
+  },
+  "artists": {
+    "title": "Ausgewählte Künstler",
+    "search": "Künstler suchen",
+    "submit": "Künstlerprofil einreichen",
+    "form": {
+      "name": "Künstlername",
+      "bio": "Biografie",
+      "artwork": "Kunstwerk hochladen",
+      "location": "Standort",
+      "submit": "Profil einreichen"
+    }
+  },
+  "about": {
+    "title": "Über Die Pullup Galerie",
+    "description": "Ein globales Kunsterlebnis durch Augmented Reality"
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "success": "Erfolg!",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten"
+  }
+} 

@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "home": "La Galleria Pullup",
+    "locations": "Luoghi",
+    "artists": "Artisti",
+    "about": "Chi siamo"
+  },
+  "home": {
+    "title": "La Galleria Pullup",
+    "subtitle": "Sperimenta l'arte in realtà aumentata"
+  },
+  "ar": {
+    "instructions": "Punta la tua fotocamera sull'immagine target per vedere l'opera d'arte"
+  },
+  "locations": {
+    "title": "Luoghi d'Arte",
+    "search": "Cerca luoghi",
+    "submit": "Invia nuovo luogo",
+    "form": {
+      "title": "Titolo del luogo",
+      "description": "Descrizione",
+      "image": "Carica immagine",
+      "coordinates": "Coordinate",
+      "submit": "Invia luogo"
+    }
+  },
+  "artists": {
+    "title": "Artisti in Evidenza",
+    "search": "Cerca artisti",
+    "submit": "Invia profilo artista",
+    "form": {
+      "name": "Nome dell'artista",
+      "bio": "Biografia",
+      "artwork": "Carica opera d'arte",
+      "location": "Luogo",
+      "submit": "Invia profilo"
+    }
+  },
+  "about": {
+    "title": "Chi siamo - La Galleria Pullup",
+    "description": "Un'esperienza artistica globale attraverso la realtà aumentata"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "success": "Successo!",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica"
+  }
+} 

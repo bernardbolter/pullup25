@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "home": "De Pullup Galerij",
+    "locations": "Locaties",
+    "artists": "Kunstenaars",
+    "about": "Over ons"
+  },
+  "home": {
+    "title": "De Pullup Galerij",
+    "subtitle": "Ervaar kunst in augmented reality"
+  },
+  "ar": {
+    "instructions": "Richt je camera op de doelafbeelding om het kunstwerk te bekijken"
+  },
+  "locations": {
+    "title": "Kunstlocaties",
+    "search": "Zoek locaties",
+    "submit": "Nieuwe locatie indienen",
+    "form": {
+      "title": "Locatietitel",
+      "description": "Beschrijving",
+      "image": "Afbeelding uploaden",
+      "coordinates": "Coördinaten",
+      "submit": "Locatie indienen"
+    }
+  },
+  "artists": {
+    "title": "Uitgelichte Kunstenaars",
+    "search": "Zoek kunstenaars",
+    "submit": "Kunstenaarsprofiel indienen",
+    "form": {
+      "name": "Naam kunstenaar",
+      "bio": "Biografie",
+      "artwork": "Kunstwerk uploaden",
+      "location": "Locatie",
+      "submit": "Profiel indienen"
+    }
+  },
+  "about": {
+    "title": "Over De Pullup Galerij",
+    "description": "Een wereldwijde kunstervaring door augmented reality"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Er is een fout opgetreden",
+    "success": "Succes!",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken"
+  }
+} 

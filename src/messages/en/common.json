@@ -1,0 +1,82 @@
+{
+  "navigation": {
+    "home": "The Pullup Gallery",
+    "locations": "Locations",
+    "artists": "Artists",
+    "about": "About"
+  },
+  "home": {
+    "title": "The Pullup Gallery",
+    "subtitle": "Experience art in augmented reality"
+  },
+  "ar": {
+    "instructions": "Point your camera at the target image to view the artwork"
+  },
+  "locations": {
+    "title": "Art Locations",
+    "search": "Search locations",
+    "submit": "Submit New Location",
+    "noLocations": "No locations found",
+    "artworksCount": "{count} artworks",
+    "form": {
+      "title": "Location Title",
+      "description": "Description",
+      "image": "Upload Image",
+      "coordinates": "Coordinates",
+      "submit": "Submit Location"
+    }
+  },
+  "artists": {
+    "title": "Featured Artists",
+    "search": "Search artists",
+    "submit": "Submit Artist Profile",
+    "noArtists": "No artists found",
+    "viewProfile": "View Profile",
+    "location": "Location",
+    "artworks": "Artworks",
+    "form": {
+      "name": "Artist Name",
+      "bio": "Biography",
+      "artwork": "Upload Artwork",
+      "location": "Location",
+      "submit": "Submit Profile"
+    }
+  },
+  "about": {
+    "title": "About The Pullup Gallery",
+    "description": "A global art experience through augmented reality",
+    "mission": {
+      "title": "Our Mission",
+      "description": "We're on a mission to make art accessible to everyone, everywhere. By combining traditional art with cutting-edge augmented reality technology, we create immersive experiences that bridge the gap between physical and digital art."
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Find Art",
+        "description": "Discover art locations near you or explore our global gallery of featured artists and their works."
+      },
+      "step2": {
+        "title": "View in AR",
+        "description": "Use your smartphone to view artworks in augmented reality, bringing them to life in your space."
+      },
+      "step3": {
+        "title": "Share & Connect",
+        "description": "Share your favorite pieces with friends and connect with artists from around the world."
+      }
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "description": "Have questions or want to collaborate? We'd love to hear from you.",
+      "email": "hello@pullupgallery.com"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success!",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit"
+  }
+} 

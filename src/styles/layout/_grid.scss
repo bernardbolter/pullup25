@@ -1,0 +1,37 @@
+.main {
+  min-height: 100vh;
+  padding-top: 80px; // Account for fixed navigation
+  
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $spacing-md;
+    
+    @include respond-to(md) {
+      padding: $spacing-lg;
+    }
+  }
+  
+  &__section {
+    margin-bottom: $spacing-xl;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__header {
+    margin-bottom: $spacing-lg;
+    text-align: center;
+  }
+  
+  &__title {
+    @include heading-1;
+    margin-bottom: $spacing-sm;
+  }
+  
+  &__subtitle {
+    @include heading-2;
+    color: $color-text-light;
+  }
+} 

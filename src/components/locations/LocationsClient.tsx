@@ -7,6 +7,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { Location } from '@/lib/api/locations';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import { AuthButton } from '@/components/auth/AuthButton';
 
 const Map = dynamic(() => import('@/components/map/Map'), {
   
@@ -99,6 +100,8 @@ const LocationsClient = ({ locations }: LocationsClientProps) => {
           {t('submit')}
         </button>
       </div>
+
+      <AuthButton />
     </div>
   );
 };

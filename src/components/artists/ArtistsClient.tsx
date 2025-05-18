@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import ArtistCard from '@/components/artists/ArtistCard';
 import { Artist, getArtists } from '@/lib/api/artists';
+import { AuthButton } from '@/components/auth/AuthButton';
 
 export const metadata: Metadata = {
   title: 'Artists - The Pullup Gallery',
@@ -54,6 +55,8 @@ const ArtistsClient: React.FC<ArtistsClientProps> = ({ artists }) => {
           {t('submit')}
         </button>
       </div>
+
+      <AuthButton />
     </div>
   );
 }

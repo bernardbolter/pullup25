@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "home": "Home",
+    "locations": "Locations",
+    "artists": "Artists",
+    "about": "About"
+  },
+  "locations": {
+    "title": "Locations",
+    "description": "Discover art locations around the world",
+    "search": "Search locations...",
+    "noLocations": "No locations found",
+    "artworksCount": "{count} artworks",
+    "submit": "Submit Location"
+  },
+  "artists": {
+    "title": "Artists",
+    "description": "Discover featured artists and their works",
+    "search": "Search artists...",
+    "noArtists": "No artists found",
+    "submit": "Submit Artist",
+    "viewProfile": "View Profile",
+    "location": "Location",
+    "artworks": "Artworks"
+  },
+  "about": {
+    "title": "About The Pullup Gallery",
+    "description": "Experience art in augmented reality",
+    "mission": {
+      "title": "Our Mission",
+      "description": "To make art accessible to everyone through technology"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Find Art",
+        "description": "Discover artworks in your area"
+      },
+      "step2": {
+        "title": "View in AR",
+        "description": "Experience art in augmented reality"
+      },
+      "step3": {
+        "title": "Share",
+        "description": "Share your experience with others"
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Get in touch with us",
+      "email": "contact@pullupgallery.com"
+    }
+  },
+  "Auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign up",
+    "loginOrSignup": "Sign up to get started"
+  }
+} 

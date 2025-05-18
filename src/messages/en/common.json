@@ -77,6 +77,18 @@
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "Auth" : "Authentication"
+  },
+  "Auth": {
+    "login": "Login",
+    "signup": "Signup",
+    "loginOrSignup": "Login or Signup",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "loginButton": "Login",
+    "signupButton": "Signup"
   }
 } 

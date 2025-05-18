@@ -13,6 +13,7 @@ export default function SignupForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('handleSubmit', formData);
     try {
       await register(formData);
     } catch (err) {

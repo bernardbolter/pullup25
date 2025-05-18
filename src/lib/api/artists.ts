@@ -22,12 +22,12 @@ const GET_ARTIST_BY_SLUG = gql`
 
 const GET_ARTISTS = gql`
   query GetArtists {
-    artists {
-      id
-      name
-      bio
-      imageUrl
-      slug
+    pullupArtists {
+      nodes {
+        title(format: RENDERED)
+        slug
+        id
+      }
     }
   }
 `;
@@ -40,13 +40,9 @@ export interface Artwork {
 }
 
 export interface Artist {
-  id: string;
-  name: string;
-  bio: string;
-  imageUrl: string;
-  location: string;
   slug: string;
-  artworks: Artwork[];
+  title: string;
+  id: string;
 }
 
 export async function getArtistBySlug(slug: string): Promise<Artist | null> {
@@ -67,7 +63,7 @@ export async function getArtists(): Promise<Artist[]> {
     const { data } = await client.query({
       query: GET_ARTISTS,
     });
-    return data.artists;
+    return data.pullupArtists.nodes;
   } catch (error) {
     console.error('Error fetching artists:', error);
     return [];

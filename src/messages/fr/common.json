@@ -28,6 +28,7 @@
     "title": "Artistes en vedette",
     "search": "Rechercher des artistes",
     "submit": "Soumettre un profil d'artiste",
+    "noArtists": "Aucun artiste trouvé",
     "form": {
       "name": "Nom de l'artiste",
       "bio": "Biographie",

@@ -16,6 +16,7 @@ interface ArtistsClientProps {
   }
 
 const ArtistsClient: React.FC<ArtistsClientProps> = ({ artists }) => {
+  console.log(artists);
   const t = useTranslations('artists');
 
   return (
@@ -37,9 +38,7 @@ const ArtistsClient: React.FC<ArtistsClientProps> = ({ artists }) => {
             <ArtistCard
               key={artist.id}
               id={artist.id}
-              name={artist.name}
-              bio={artist.bio}
-              imageUrl={artist.imageUrl}
+              title={artist.title}
               slug={artist.slug}
             />
           ))

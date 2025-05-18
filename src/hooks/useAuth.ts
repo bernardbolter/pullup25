@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createGraphQLClient, setAuthToken, removeAuthToken, getAuthToken } from '@/lib/graphql-client';
 import { LOGIN_MUTATION, REGISTER_MUTATION } from '@/lib/graphql/mutations';
@@ -20,9 +20,23 @@ interface RegisterInput {
   password: string;
 }
 
+interface LoginResponse {
+  login: {
+    authToken: string;
+    user: AuthUser;
+  };
+}
+
+interface RegisterResponse {
+  registerUser: {
+    user: AuthUser;
+  };
+}
+
 export const useAuth = () => {
   const router = useRouter();
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,7 +45,7 @@ export const useAuth = () => {
       setLoading(true);
       setError(null);
       const client = createGraphQLClient();
-      const response = await client.request(LOGIN_MUTATION, { input });
+      const response = await client.request<LoginResponse>(LOGIN_MUTATION, { input });
       
       if (response.login?.authToken) {
         setAuthToken(response.login.authToken);
@@ -51,7 +65,7 @@ export const useAuth = () => {
       setLoading(true);
       setError(null);
       const client = createGraphQLClient();
-      const response = await client.request(REGISTER_MUTATION, { input });
+      const response = await client.request<RegisterResponse>(REGISTER_MUTATION, { input });
       
       if (response.registerUser?.user) {
         setUser(response.registerUser.user);

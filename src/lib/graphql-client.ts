@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
-const WORDPRESS_GRAPHQL_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+const WORDPRESS_GRAPHQL_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL_GRAPHQL;
 
 export const createGraphQLClient = (token?: string) => {
   const headers: Record<string, string> = {

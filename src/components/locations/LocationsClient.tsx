@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import { Location } from '@/lib/api/locations';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { AuthButton } from '@/components/auth/AuthButton';
-
+import LocationsSubmit from './LocationsSubmit';
 const Map = dynamic(() => import('@/components/map/Map'), {
   
   ssr: false,
@@ -25,6 +25,11 @@ interface LocationsClientProps {
 
 const LocationsClient = ({ locations }: LocationsClientProps) => {
   const t = useTranslations('locations');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const [searchQuery, setSearchQuery] = useState('');
   const { latitude, longitude, error: locationError } = useGeolocation();
 
@@ -96,12 +101,20 @@ const LocationsClient = ({ locations }: LocationsClientProps) => {
       </div>
 
       <div className="locations__submit">
-        <button className="button button--primary">
+        <button 
+          className="button button--primary"
+          onClick={() => {
+            openModal();
+            console.log("submit");
+          }}
+        >
           {t('submit')}
         </button>
       </div>
 
       <AuthButton />
+
+      {isModalOpen && <LocationsSubmit onClose={closeModal} />}
     </div>
   );
 };

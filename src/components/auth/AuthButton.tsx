@@ -1,30 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 import styles from './AuthButton.module.scss';
-import { useUser } from '@/providers/UserContext';
-import { isAuthenticated, removeAuthToken } from '@/lib/graphql-client';
+
+// import { useUser } from '@/providers/UserContext';
+// import { isAuthenticated, removeAuthToken } from '@/lib/graphql-client';
 
 export const AuthButton = () => {
   const t = useTranslations('Auth');
-  const authenticated = isAuthenticated();
+  const router = useRouter();
   const [showTooltip, setShowTooltip] = useState(false);
-  const { user, loading, error } = useUser();
-  console.log(user);
-  console.log(loading);
-  console.log(error);
+  const { isAuthenticated, isLoading } = useAuth();
+  console.log(isAuthenticated);
+  console.log(isLoading);
 
-  if (authenticated) {
+
+  if (isAuthenticated) {
     return (
       <div className={styles.authButton}>
         <div className={styles.authenticated}>
-          <span className={styles.email}>{user?.email}</span>
+          {/* <span className={styles.email}>{user?.email}</span> */}
           <button
             className={styles.logoutButton}
-            onClick={() => removeAuthToken()}
+            onClick={() => console.log('logout')}
             aria-label={t('logout')}
           >
             <FaSignOutAlt />

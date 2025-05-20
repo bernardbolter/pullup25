@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { UserProvider } from '@/providers/UserContext';
 import { getMessages } from 'next-intl/server';
+import { AuthProvider } from '@/lib/providers';
 import Navigation from '@/components/layout/Navigation';
 import '@/styles/main.scss';
 
@@ -36,12 +37,14 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <UserProvider>
-            <Navigation />
-            <main>{children}</main>
-          </UserProvider>
-        </NextIntlClientProvider>
+        <AuthProvider>
+          <NextIntlClientProvider messages={messages} locale={locale}>
+            <UserProvider>
+              <Navigation />
+              <main>{children}</main>
+            </UserProvider>
+          </NextIntlClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );

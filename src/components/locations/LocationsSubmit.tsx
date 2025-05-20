@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useUser } from '@/providers/UserContext'; // Import the user context
-import { gql, useMutation } from '@apollo/client'; // Import Apollo Client hooks
+import { gql } from '@apollo/client'; // Import Apollo Client hooks
+import client from '@/lib/graphql/client';
 import MapSelector from './LocationsSelector'; // Import the MapSelector component
 
 // Define the GraphQL mutation
-const CREATE_LOCATION = gql`
-  mutation CreateLocation($input: CreateLocationInput!) {
-    createLocation(input: $input) {
-      location {
-        id
-        title
-        lat
-        lng
+const CREATE_PULLUP_LOCATION = gql`
+  mutation CreatePullupLocation($input: CreatePullupLocationInput!) {
+    createPullupLocation(input: $input) {
+      pullupLocation {  
+        id  
+        title  
       }
     }
   }
@@ -30,39 +29,49 @@ const LocationsSubmit: React.FC<LocationsSubmitProps> = ({ onClose }) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  // Use the mutation hook
-  // const [createLocation] = useMutation(CREATE_LOCATION, {
-  //   onCompleted: () => {
-  //     setSuccess('Location created successfully!');
-  //     setLocationTitle('');
-  //     setLocationDescription('');
-  //     setLatitude(null);
-  //     setLongitude(null);
-  //   //   onClose(); // Close the modal after successful creation
-  //   },
-  //   onError: (err) => {
-  //     setError(err.message);
-  //   },
-  // });
+  // const [createCustomPost] = useMutation(CREATE_PULLUP_LOCATION);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleCreatePullupLocation = async (input: { title: string; content?: string }) => {
+    const token = localStorage.getItem('auth_token'); // Get the token from local storage
 
-    if (!latitude || !longitude) {
-      setError('Latitude and longitude are required.');
+    if (!token) {
+      console.log('No token found');
       return;
     }
-
+  
     try {
-      await createLocation({
+      const { data } = await client.mutate({
+        mutation: CREATE_PULLUP_LOCATION,
         variables: {
           input: {
             title: locationTitle,
-            lat: latitude,
-            lng: longitude,
+          },
+        },
+        context: {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the headers
           },
         },
       });
+  
+      console.log('Post created:', data);
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
+  };
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+   
+
+    // if (!latitude || !longitude) {
+    //   setError('Latitude and longitude are required.');
+    //   return;
+    // }
+
+    try {
+      await handleCreatePullupLocation({ title: locationTitle });
     } catch (err) {
       console.error('Error creating location:', err);
     }

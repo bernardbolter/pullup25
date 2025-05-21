@@ -3,24 +3,23 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 import styles from './AuthButton.module.scss';
+import { useAuth } from '@/lib/providers'
 
 // import { useUser } from '@/providers/UserContext';
-// import { isAuthenticated, removeAuthToken } from '@/lib/graphql-client';
+import { isAuthenticated, removeAuthToken } from '@/lib/graphql-client';
 
 export const AuthButton = () => {
   const t = useTranslations('Auth');
   const router = useRouter();
   const [showTooltip, setShowTooltip] = useState(false);
-  const { isAuthenticated, isLoading } = useAuth();
-  console.log(isAuthenticated);
-  console.log(isLoading);
+  const theAuth = useAuth();
+  console.log(theAuth.user)
 
 
-  if (isAuthenticated) {
+  if (isAuthenticated()) {
     return (
       <div className={styles.authButton}>
         <div className={styles.authenticated}>

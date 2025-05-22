@@ -1,35 +1,39 @@
-import { NextRequest, NextResponse } from 'next/server';
+// src/app/api/auth/login/route.ts
+import { NextResponse } from 'next/server';
 import { authenticateWithWordPress, setAuthCookie } from '@/lib/auth';
+import { User } from '@/lib/types'; // Ensure User type is appropriate
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
 
     if (!username || !password) {
-      return NextResponse.json({ message: 'Username and password are required' }, { status: 400 });
+      return NextResponse.json({ error: 'Username and password are required' }, { status: 400 });
     }
 
-    // Authenticate with WordPress
     const user = await authenticateWithWordPress(username, password);
 
     if (!user) {
-      return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid credentials or WordPress authentication failed' }, { status: 401 });
     }
 
-    // Set auth token in cookies
-    setAuthCookie(user);
+    // Set the custom JWT cookie
+    setAuthCookie(user); // This function is server-side and uses next/headers cookies
 
-    return NextResponse.json({ 
-      success: true,
-      user: {
-        id: user.id,
-        username: user.username,
-        name: user.name,
-        email: user.email
-      } 
-    });
+    // Return user information (excluding sensitive data like the token)
+    const clientUser: Omit<User, 'token'> = { // Or pick specific fields
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      email: user.email,
+    };
+
+    return NextResponse.json(clientUser);
   } catch (error) {
     console.error('Login error:', error);
-    return NextResponse.json({ message: 'Authentication failed' }, { status: 500 });
+    if (error instanceof Error && error.message.includes('Authentication failed')) {
+        return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    }
+    return NextResponse.json({ error: 'Internal Server Error during login' }, { status: 500 });
   }
 }

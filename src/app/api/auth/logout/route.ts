@@ -1,14 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
+// src/app/api/auth/logout/route.ts
+import { NextResponse } from 'next/server';
 import { clearAuthCookie } from '@/lib/auth';
 
-export async function POST(request: NextRequest) {
+export async function POST() { // Changed to POST as per best practices for actions that change state
   try {
-    // Clear authentication cookie
-    clearAuthCookie();
-    
-    return NextResponse.json({ success: true });
+    clearAuthCookie(); // This function is server-side
+    return NextResponse.json({ message: 'Logged out successfully' });
   } catch (error) {
     console.error('Logout error:', error);
-    return NextResponse.json({ message: 'Logout failed' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal Server Error during logout' }, { status: 500 });
   }
 }

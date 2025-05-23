@@ -2,29 +2,41 @@
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useAuth } from '@/lib/providers';
+import { useUser } from '@/providers/UserContext'; // Changed from useAuth
+import Link from 'next/link'; // Added for navigation link
 
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { login, error: authError, isLoading } = useAuth();
+  // Use `loading` and `contextError` from UserContext.
+  // `contextError` is aliased from `error` in useUser to distinguish from local `error` state.
+  const { login, loading, error: contextError } = useUser(); 
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // Local error state can be used for client-side validation or specific UI errors
+  // not covered by the global authentication error from context.
+  const [error, setError] = useState(''); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError(''); // Clear local error state
 
     try {
+      // login from UserContext handles its own error/loading states internally
       await login(username, password);
       
-      // Redirect to dashboard or intended destination
+      // If login promise resolves, UserProvider has set user and isAuthenticated.
+      // Redirect as per original logic.
       const redirectTo = searchParams.get('redirect') || '/dashboard';
       router.push(redirectTo);
-    } catch (error) {
-      setError((error as Error).message || 'An error occurred during login');
+    } catch (err) {
+      // This catch block is for unexpected errors during the login call itself,
+      // or if the login promise from context *rejects* (which it might not, if it handles all errors internally by setting contextError).
+      // Most auth-related errors should be handled by UserContext and reflected in `contextError`.
+      console.error('Login failed in component:', err);
+      // Optionally, set local error for specific non-auth issues if needed:
+      // setError('An unexpected issue occurred. Please try again.');
     }
   };
 
@@ -32,9 +44,16 @@ export default function LoginForm() {
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6">Login to WordPress</h2>
       
-      {(error || authError) && (
+      {/* Display error from UserContext */}
+      {contextError && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
-          {error || authError}
+          {contextError}
+        </div>
+      )}
+      {/* Display local error (e.g., for client-side validation if added later) */}
+      {error && !contextError && ( // Only show local error if no contextError
+        <div className="mb-4 p-3 bg-yellow-100 text-yellow-700 rounded-md">
+          {error}
         </div>
       )}
       
@@ -69,12 +88,17 @@ export default function LoginForm() {
         
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={loading} // Use loading from UserContext
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
         >
-          {isLoading ? 'Logging in...' : 'Log In'}
+          {loading ? 'Logging in...' : 'Log In'} {/* Use loading from UserContext */}
         </button>
       </form>
+      <div className="mt-6 text-center">
+        <Link href="/signup" className="text-sm text-blue-600 hover:underline">
+          Don&apos;t have an account? Sign up here
+        </Link>
+      </div>
     </div>
   );
 }

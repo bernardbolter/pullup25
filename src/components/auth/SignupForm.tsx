@@ -1,10 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { useUser } from '@/providers/UserContext'; // Changed from useAuth
+import { useRouter } from 'next/navigation'; // Added for redirection
+import Link from 'next/link'; // Added for navigation link
 
 export default function SignupForm() {
-  const { register, loading, error } = useAuth();
+  // Use `authError` to avoid naming conflict if a local error state were ever needed.
+  // `user` is also available from useUser if needed to check post-signup state.
+  const { signup, loading, error: authError } = useUser();
+  const router = useRouter(); // Initialize router
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -13,11 +19,20 @@ export default function SignupForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('handleSubmit', formData);
+    // The signup function in UserContext now handles error state internally.
+    // We await its completion to know if we should redirect.
     try {
-      await register(formData);
+      await signup(formData.username, formData.email, formData.password);
+      // If signup promise resolves without throwing an error, it was successful.
+      // UserProvider will have updated the user state and isAuthenticated.
+      // Redirect to login page as per requirements.
+      router.push('/login');
     } catch (err) {
-      // Error is handled by the useAuth hook
+      // This catch block is for any unexpected errors during the signup call itself,
+      // or if signup re-throws an error. Generally, UserProvider's error state (authError)
+      // will be set by the signup function.
+      console.error('Signup failed in component:', err);
+      // authError from useUser() should already be updated by the signup function.
     }
   };
 
@@ -30,9 +45,9 @@ export default function SignupForm() {
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
+          {authError && ( // Use authError from context
             <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">{error}</div>
+              <div className="text-sm text-red-700">{authError}</div>
             </div>
           )}
           <div className="rounded-md shadow-sm -space-y-px">
@@ -93,7 +108,12 @@ export default function SignupForm() {
             </button>
           </div>
         </form>
+        <div className="text-sm text-center">
+          <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+            Already have an account? Log in
+          </Link>
+        </div>
       </div>
     </div>
   );
-} 
+}

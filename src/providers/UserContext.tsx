@@ -18,6 +18,7 @@ interface UserContextType {
   login: (username: string, password: string) => Promise<void>; // Add this
   logout: () => Promise<void>; // Add this
   checkAuthStatusAndFetchUser: () => Promise<void>; // Add this
+  signup: (username: string, email: string, password: string) => Promise<void>; // Add signup
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -50,6 +51,37 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setError(err.message);
       } else {
         setError('An unknown error occurred during auth check.');
+      }
+      setUser(null);
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signup = async (username: string, email: string, password: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      });
+      const data = await response.json(); // Always parse JSON to get potential error messages
+      if (response.status === 201) { // Successfully created
+        setUser(data); // API returns user object { id, username, email, name }
+        setIsAuthenticated(true);
+      } else {
+        setUser(null);
+        setIsAuthenticated(false);
+        setError(data.message || data.error || 'Signup failed.'); // Use message from API
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred during signup.');
       }
       setUser(null);
       setIsAuthenticated(false);
@@ -111,7 +143,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, isAuthenticated, loading, error, login, logout, checkAuthStatusAndFetchUser }}>
+    <UserContext.Provider value={{ user, isAuthenticated, loading, error, login, logout, signup, checkAuthStatusAndFetchUser }}>
       {children}
     </UserContext.Provider>
   );
